@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visor FTIR con detección de picos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Visor FTIR - Análisis de Materiales</h1>
+    <div class="controls">
+      <label for="file">Archivo (TXT/CSV):</label>
+      <input id="file" type="file" accept=".txt,.csv" />
+      <div class="toggle">
+        <input id="invertX" type="checkbox" />
+        <label for="invertX">Invertir eje X</label>
+      </div>
+      <div class="toggle">
+        <input id="normalizeY" type="checkbox" />
+        <label for="normalizeY">Normalizar Y</label>
+      </div>
+      <div class="range">
+        <label for="smooth">Suavizado:</label>
+        <input id="smooth" type="range" min="0" max="11" step="1" value="0" />
+        <span id="smoothLabel">0</span>
+      </div>
+      <button id="reset" class="btn" disabled>Reset vista</button>
+      <button id="exportPNG" class="btn" disabled>Exportar PNG</button>
+      <button id="captureFTIR" class="btn">Captura horizontal</button>
+    </div>
+  </header>
+
+  <main id="report-container">
+    <aside id="main-aside">
+      <div class="box" id="general-data">
+        <h3>Datos Generales</h3>
+        <div class="input-group">
+          <label>Informe Raman:</label>
+          <input type="text" id="infoRaman" placeholder="...">
+        </div>
+        <div class="input-group">
+          <label>XPS (Emparentado):</label>
+          <input type="text" id="infoXPS" placeholder="...">
+        </div>
+        <div class="input-group">
+          <label>Fecha:</label>
+          <input type="date" id="infoFecha">
+        </div>
+        <div class="input-group">
+          <label>Celda:</label>
+          <input type="text" id="infoCelda" placeholder="...">
+        </div>
+        <div class="input-group">
+          <label>Reactor:</label>
+          <input type="text" id="infoReactor" placeholder="...">
+        </div>
+      </div>
+
+      <div id="drop" class="drop">Arrastra tu archivo aquí</div>
+      
+      <div class="box">
+        <h3>Estado del espectro</h3>
+        <div class="stat"><strong>Puntos:</strong> <span id="nPoints">0</span></div>
+        <div class="stat"><strong>Rango X:</strong> <span id="xRange">–</span></div>
+        <div class="stat"><strong>Rango Y:</strong> <span id="yRange">–</span></div>
+        <div id="msg" class="warn"></div>
+      </div>
+    </aside>
+
+    <div id="canvas-wrap">
+      <canvas id="plot"></canvas>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
